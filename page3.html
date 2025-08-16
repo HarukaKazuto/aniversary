@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page 3 — Romantic | Dipanjit ❤ Barbie</title>
+<style>
+  :root{--p:#ff4d6d;--a:#ff99ac;--glass:rgba(255,255,255,.14)} *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Arial;color:#fff;overflow:hidden;background:radial-gradient(1200px 600px at 50% 20%,rgba(255,255,255,.15),transparent),linear-gradient(135deg,#ff758c,#ff7eb3,#feb47b,#ff6a88);background-size:cover}
+  .wrap{position:relative;min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+  .panel{width:min(920px,100%);max-height:92vh;overflow:auto;background:var(--glass);backdrop-filter:blur(10px);border-radius:24px;box-shadow:0 20px 80px rgba(0,0,0,.25);padding:22px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .title{font-weight:800;font-size:20px;text-shadow:0 0 10px rgba(255,255,255,.7)}
+  .btn{appearance:none;border:0;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;color:var(--p);background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.12)}
+  .progress{margin-top:14px;width:100%;height:10px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+  .bar{height:100%;width:0;background:#fff;box-shadow:0 0 18px #fff inset,0 0 18px #fff;transition:width .4s ease}
+  main{margin-top:18px}
+  .card{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:18px;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  .center{text-align:center}
+  .actions{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+  input[type=text],input[type=number],.pill{width:min(420px,92%);padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.55);background:#fff;color:#ff4d6d;font-weight:800;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  .spin{width:240px;height:240px;border-radius:50%;background:#fff;color:#ff4d6d;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;cursor:pointer;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+  .letters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .meter{width:min(420px,92%);height:12px;background:rgba(255,255,255,.35);border-radius:999px;overflow:hidden}
+  .fill{height:100%;width:0;background:#fff;box-shadow:0 0 18px #fff inset,0 0 18px #fff}
+  .confetti{position:fixed;top:-10px;width:10px;height:10px;border-radius:50%;opacity:.9;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+  .final{ text-align:center }
+  .heart3d{ position:relative; width:160px; height:140px; margin:20px auto; transform:scale(1); animation:beat 1.6s ease-in-out infinite }
+  .heart3d:before,.heart3d:after{content:""; position:absolute; top:0; width:80px; height:120px; background:linear-gradient(#ff4d6d,#ff8fab); border-radius:80px 80px 0 0}
+  .heart3d:before{left:80px; transform:rotate(-45deg); transform-origin:0 100%}
+  .heart3d:after{left:0; transform:rotate(45deg); transform-origin:100% 100%}
+  @keyframes beat{0%{transform:scale(1)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
+  .poem{white-space:pre-line; font-size:16px; margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="panel">
+  <header>
+    <div><div class="title">Dipanjit ❤ Barbie</div><div style="font-size:12px;opacity:.9">Page 3 of 3 — Romantic Finale</div></div>
+    <div class="controls"><button class="btn" id="music">🎵 Music: Off</button></div>
+  </header>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <main id="stage"></main>
+  <footer class="center" style="margin-top:10px;font-size:12px">Unlock the final reward 💖</footer>
+</div></div>
+<audio id="bgm" src="bg.mp3" loop></audio>
+<script>
+  function confettiBurst(n=220){for(let i=0;i<n;i++){const c=document.createElement('div'); c.className='confetti'; c.style.left=Math.random()*100+'vw'; c.style.background=`hsl(${Math.random()*360},100%,50%)`; c.style.animationDuration=(Math.random()*3+2)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),5000)}}
+  const m=document.getElementById('bgm'), mb=document.getElementById('music'); if(localStorage.music==='on'){ m.volume=.55; m.play().catch(()=>{}); mb.textContent='🎵 Music: On'; }
+  mb.onclick=()=>{ if(m.paused){m.volume=.55;m.play().catch(()=>{});mb.textContent='🎵 Music: On';localStorage.music='on'} else {m.pause();mb.textContent='🎵 Music: Off';localStorage.music='off'} };
+  let lvl=1; const MAX=5; const stage=document.getElementById('stage'); const bar=document.getElementById('bar'); function setBar(){bar.style.width=((lvl-1)/MAX*100)+'%'} setBar();
+  function center(title,html,hint=''){return `<div class=card><h2>Stage ${lvl} / ${MAX}</h2><p class=center><strong>${title}</strong></p><div class=actions>${html}</div>${hint?`<div class=hint>${hint}</div>`:''}</div>`}
+  function pulse(ok=true){document.querySelector('.panel').animate([{transform:'scale(1)'},{transform:`scale(${ok?1.01:.995})`}],{duration:240})}
+  function toast(t){const d=document.createElement('div'); d.textContent=t; Object.assign(d.style,{position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',background:'#fff',color:'#ff4d6d',padding:'10px 16px',borderRadius:'14px',fontWeight:'800',boxShadow:'0 10px 30px rgba(0,0,0,.18)'}); document.body.appendChild(d); setTimeout(()=>d.remove(),1300)}
+  function solved(final=false){pulse(); if(final){confettiBurst(320); showFinal()} else { if(lvl===MAX){ solved(true) } else { lvl++; setBar(); render(); } } }
+  function wrong(msg='Almost there, sweetheart 💕'){pulse(false); toast(msg)}
+  function v(id){return document.getElementById(id).value.trim().toLowerCase()}
+  function render(){
+    switch(lvl){
+      case 1: // Love quote completion
+        stage.innerHTML=center('Complete the line: “You are my ______.”',`<input id=i type=text placeholder=one word><button class=btn id=b>Submit</button>`,`Think of what I call you ✨`); document.getElementById('b').onclick=()=>{ const a=v('i'); if(a==='everything' || a==='world' || a==='universe'){ solved() } else wrong('It starts with “every…” or “uni…”')}; break;
+      case 2: // Heart lock code 143
+        stage.innerHTML=center('Heart Lock — Enter the code',`<input id=i type=number placeholder=3 digits><button class=btn id=b>Unlock</button>`); document.getElementById('b').onclick=()=>{ if(v('i')==='143') solved(); else wrong('It literally says I‑Love‑You 😘')}; break;
+      case 3: // Spin the wheel
+        stage.innerHTML=center('Spin the Wheel of Love',`<div class=spin id=wheel>Tap to Spin</div>`,`Land on “KISS” to win`); const lines=['HUG','SMILE','DATE','KISS','CUDDLE','WINK']; const w=document.getElementById('wheel'); let spinning=false; w.onclick=()=>{ if(spinning) return; spinning=true; let t=0; const iv=setInterval(()=>{ w.textContent=lines[(t++)%lines.length]; if(t>30+Math.floor(Math.random()*20)){ clearInterval(iv); spinning=false; if(w.textContent==='KISS') solved(); else wrong('Spin again till KISS 💋') } },90)}; break;
+      case 4: // Click letters to spell FOREVER
+        const letters=['F','O','R','E','V','E','R']; const shuffled=[...letters].sort(()=>Math.random()-0.5);
+        stage.innerHTML=center('Tap the letters to spell FOREVER',`<div class=letters id=lets>${shuffled.map(l=>`<button class="pill">${l}</button>`).join('')}</div>`,'No mistakes allowed!'); let seq=''; stage.querySelectorAll('.pill').forEach(b=>b.onclick=()=>{ seq+=b.textContent; if('FOREVER'.startsWith(seq)){ if(seq==='FOREVER') solved(); } else { seq=''; wrong('Start again 💗') } }); break;
+      case 5: // Hold-to-fill love meter
+        stage.innerHTML=center('Hold to fill the Love Meter (3s)',`<div class=meter><div class=fill id=f></div></div><div class=actions><button class=btn id=hold>Hold Me</button></div>`,'Don\'t let go!'); const f=document.getElementById('f'); const h=document.getElementById('hold'); let t=null, p=0; const tick=()=>{ p=Math.min(100,p+1); f.style.width=p+'%'; if(p>=100){ clearInterval(t); solved(true) } }; h.onmousedown=()=>{ if(t) return; t=setInterval(tick,30) }; ['mouseup','mouseleave','touchend'].forEach(ev=>h.addEventListener(ev,()=>{ clearInterval(t); t=null; p=0; f.style.width='0%' })); h.ontouchstart=h.onmousedown; break;
+    }
+  }
+  function showFinal(){
+    document.querySelector('footer').remove();
+    stage.innerHTML = `
+      <div class=card>
+        <h2 class=center>🎉 You unlocked the final reward! 🎉</h2>
+        <div class=heart3d></div>
+        <h3 class=center style="margin:0">Happy Anniversary, My Love!</h3>
+        <p class="center poem">In every dawn, I see your light,\nA gentle flame that burns so bright.\nThrough storm and calm, through night and day,\nYour love has always shown the way.\n\nIf life’s a puzzle, then it’s true,\nThe missing piece has always been you.\nNo treasure found, no dream above,\nCould match the gift of your endless love.\n\nSo here’s my heart, my vow, my song,\nWith you is where I truly belong.\nForever yours, come what may,\nHappy Anniversary, my Barbie, today.</p>
+        <div class=actions><button class=btn id=letter>Open My Letter</button></div>
+        <div id=letterBox class=card style="display:none;margin-top:12px">
+          <p class=center style="white-space:pre-line"><strong>My Barbie,</strong>\n\nFrom the moment you walked into my life, every piece of me finally made sense.\nThis little puzzle journey was just to remind you — no challenge, no riddle, no obstacle is greater than the love I hold for you.\n\nEvery laugh we shared, every memory we built, every fight we survived, all of it makes us stronger.\n\nToday, on our anniversary, I want you to know that I am yours — in every life, in every world, in every tomorrow.\n\n<strong>I love you endlessly.\n– Yours, Dipanjit ❤</strong></p>
+          <div class=actions>
+            <button class=btn onclick="navigator.clipboard.writeText(location.href); this.textContent='Link copied 💞'">Share this</button>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('letter').onclick=()=>{ document.getElementById('letterBox').style.display='block' };
+  }
+  render();
+</script>
+</body>
+</html>

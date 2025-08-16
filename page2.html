@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page 2 — Innovative | Dipanjit ❤ Barbie</title>
+<style>
+  :root{--p:#ff4d6d;--glass:rgba(255,255,255,.14)} *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Arial;color:#fff;overflow:hidden;background:linear-gradient(135deg,#ff758c,#ff7eb3,#feb47b,#ff6a88);background-size:400% 400%;animation:bg 18s ease infinite}
+  @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .wrap{position:relative;min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+  .panel{width:min(920px,100%);max-height:92vh;overflow:auto;background:var(--glass);backdrop-filter:blur(10px);border-radius:24px;box-shadow:0 20px 80px rgba(0,0,0,.25);padding:22px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .title{font-weight:800;font-size:20px;text-shadow:0 0 10px rgba(255,255,255,.7)}
+  .btn{appearance:none;border:0;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;color:var(--p);background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.12)}
+  .btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+  .progress{margin-top:14px;width:100%;height:10px;background:rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+  .bar{height:100%;width:0;background:#fff;box-shadow:0 0 18px #fff inset,0 0 18px #fff;transition:width .4s ease}
+  main{margin-top:18px}
+  .card{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);padding:18px;border-radius:18px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+  .center{text-align:center}
+  .actions{display:flex;justify-content:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+  input[type=text],.pill{width:min(420px,92%);padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.55);background:#fff;color:#ff4d6d;font-weight:800;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  canvas{background:#fff;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+  .grid{display:grid;grid-template-columns:repeat(4,72px);gap:10px;justify-content:center}
+  .tile{width:72px;height:72px;border-radius:12px;background:#fff;color:#ff4d6d;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;user-select:none}
+  .maze{width:320px;height:200px;background:#fff;color:#ff4d6d;border-radius:12px;position:relative;overflow:hidden}
+  .m-wall{position:absolute;background:#ffccd5}
+  .m-you,.m-goal{position:absolute;width:18px;height:18px;border-radius:50%}
+  .m-you{background:#ff4d6d;box-shadow:0 0 10px #ff4d6d}
+  .m-goal{background:#70e000;box-shadow:0 0 10px #70e000}
+  .confetti{position:fixed;top:-10px;width:10px;height:10px;border-radius:50%;opacity:.9;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="panel">
+  <header>
+    <div><div class="title">Dipanjit ❤ Barbie</div><div style="font-size:12px;opacity:.9">Page 2 of 3 — Innovative & Interactive</div></div>
+    <div class="controls"><button class="btn" id="music">🎵 Music: Off</button><a class="btn ghost" href="page3.html" id="next" style="pointer-events:none;opacity:.5">Next Page →</a></div>
+  </header>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <main id="stage"></main>
+  <footer class="center" style="margin-top:10px;font-size:12px">Unlock all 5 to continue ✨</footer>
+</div></div>
+<audio id="bgm" src="bg.mp3" loop></audio>
+<script>
+  function confettiBurst(n=140){for(let i=0;i<n;i++){const c=document.createElement('div'); c.className='confetti'; c.style.left=Math.random()*100+'vw'; c.style.background=`hsl(${Math.random()*360},100%,50%)`; c.style.animationDuration=(Math.random()*3+2)+'s'; document.body.appendChild(c); setTimeout(()=>c.remove(),5000)}}
+  const m=document.getElementById('bgm'), mb=document.getElementById('music'); if(localStorage.music==='on'){ m.volume=.55; m.play().catch(()=>{}); mb.textContent='🎵 Music: On'; }
+  mb.onclick=()=>{ if(m.paused){m.volume=.55;m.play().catch(()=>{});mb.textContent='🎵 Music: On';localStorage.music='on'} else {m.pause();mb.textContent='🎵 Music: Off';localStorage.music='off'} };
+  let lvl=1; const MAX=5; const stage=document.getElementById('stage'); const bar=document.getElementById('bar'); const next=document.getElementById('next'); function setBar(){bar.style.width=((lvl-1)/MAX*100)+'%'} setBar();
+  function center(title,html,hint=''){return `<div class=card><h2>Stage ${lvl} / ${MAX}</h2><p class=center><strong>${title}</strong></p><div class=actions>${html}</div>${hint?`<div class=hint>${hint}</div>`:''}</div>`}
+  function pulse(ok=true){document.querySelector('.panel').animate([{transform:'scale(1)'},{transform:`scale(${ok?1.01:.995})`}],{duration:240})}
+  function toast(t){const d=document.createElement('div'); d.textContent=t; Object.assign(d.style,{position:'fixed',bottom:'24px',left:'50%',transform:'translateX(-50%)',background:'#fff',color:'#ff4d6d',padding:'10px 16px',borderRadius:'14px',fontWeight:'800',boxShadow:'0 10px 30px rgba(0,0,0,.18)'}); document.body.appendChild(d); setTimeout(()=>d.remove(),1300)}
+  function solved(){pulse(); if(lvl===MAX){confettiBurst(); next.style.pointerEvents='auto'; next.style.opacity='1'; toast('On to the romantic finale →')} else {lvl++; setBar(); render();}}
+  function wrong(msg='Almost there 💕'){pulse(false); toast(msg)}
+  function v(id){return document.getElementById(id).value.trim().toLowerCase()}
+  function render(){
+    switch(lvl){
+      case 1: // Word Unscramble LOVE
+        stage.innerHTML=center('Unscramble the word',`<div class=pill style="text-align:center">E  V  O  L</div><input id=i type=text placeholder=word><button class=btn id=b>Submit</button>`,`It spells the biggest feeling ♥`); document.getElementById('b').onclick=()=>{ if(v('i')==='love') solved(); else wrong()}; break;
+      case 2: // Memory Match 8 cards
+        renderMemory(); break;
+      case 3: // Scratch card reveal
+        renderScratch(); break;
+      case 4: // Emoji guess I LOVE YOU
+        stage.innerHTML=center('Emoji Guess: 👁️  +  ❤️  +  U = ?',`<input id=i type=text placeholder="your phrase"><button class=btn id=b>Submit</button>`); document.getElementById('b').onclick=()=>{ const a=v('i'); if(a==='i love you' || a==='i luv u' || a==='i love u') solved(); else wrong('Say the magic words ✨')}; break;
+      case 5: // Mini Maze
+        renderMaze(); break;
+    }
+  }
+  // memory
+  function renderMemory(){
+    const symbols=['❤','🌸','💍','✨']; const deck=[...symbols,...symbols]; for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [deck[i],deck[j]]=[deck[j],deck[i]]}
+    stage.innerHTML=center('Memory Match — find all pairs','<div class="grid" id="grid"></div>'); const grid=document.getElementById('grid');
+    deck.forEach(s=>{const d=document.createElement('div'); d.className='tile'; d.dataset.symbol=s; d.textContent='❓'; grid.appendChild(d)});
+    let first=null, lock=false, matched=0; grid.addEventListener('click',e=>{const el=e.target; if(!el.classList.contains('tile')) return; if(lock||el.textContent!=='❓') return; el.textContent=el.dataset.symbol; if(!first){first=el}else{lock=true; if(first.dataset.symbol===el.dataset.symbol){matched+=2; first=null; lock=false; if(matched===deck.length){ solved(); }} else { setTimeout(()=>{ first.textContent='❓'; el.textContent='❓'; first=null; lock=false },700); } } });
+}
+  // scratch
+  function renderScratch(){
+    stage.innerHTML=center('Scratch to Reveal the Message','<canvas id="scratch" width="320" height="160"></canvas>','Scratch ~60% to unlock');
+    const canvas=document.getElementById('scratch'); const ctx=canvas.getContext('2d');
+    // hidden message
+    ctx.fillStyle='#fff'; ctx.fillRect(0,0,320,160); ctx.fillStyle='#ff4d6d'; ctx.font='bold 24px Poppins, sans-serif'; ctx.textAlign='center'; ctx.fillText('You + Me = Forever ❤',160,88);
+    // cover layer
+    const cover=document.createElement('canvas'); cover.width=320; cover.height=160; const cctx=cover.getContext('2d'); cctx.fillStyle='#ffb3c1'; cctx.fillRect(0,0,320,160); cctx.fillStyle='#fff'; cctx.font='bold 20px Poppins'; cctx.textAlign='center'; cctx.fillText('Scratch me ✨',160,86);
+    const mask=ctx.createPattern(cover,'no-repeat');
+    let revealed=0; let scratching=false;
+    function drawCover(){ ctx.globalCompositeOperation='source-over'; ctx.drawImage(cover,0,0) }
+    function scratch(x,y){ ctx.globalCompositeOperation='destination-out'; ctx.beginPath(); ctx.arc(x,y,18,0,Math.PI*2); ctx.fill(); }
+    function computeReveal(){ const img=ctx.getImageData(0,0,320,160).data; let transparent=0; for(let i=3;i<img.length;i+=4) if(img[i]===0) transparent++; revealed = transparent/(320*160); if(revealed>0.6) solved() }
+    const base=canvas.getBoundingClientRect(); drawCover();
+    function getPos(e){ const r=canvas.getBoundingClientRect(); const x=(e.touches?e.touches[0].clientX:e.clientX)-r.left; const y=(e.touches?e.touches[0].clientY:e.clientY)-r.top; return {x,y} }
+    canvas.addEventListener('mousedown',e=>{scratching=true; const p=getPos(e); scratch(p.x,p.y)});
+    canvas.addEventListener('mousemove',e=>{ if(!scratching) return; const p=getPos(e); scratch(p.x,p.y)});
+    window.addEventListener('mouseup',()=>{ if(scratching){ scratching=false; computeReveal() } });
+    canvas.addEventListener('touchstart',e=>{scratching=true; const p=getPos(e); scratch(p.x,p.y)});
+    canvas.addEventListener('touchmove',e=>{ const p=getPos(e); scratch(p.x,p.y)});
+    canvas.addEventListener('touchend',()=>{ scratching=false; computeReveal() });
+  }
+  // maze
+  function renderMaze(){
+    stage.innerHTML=center('Guide the heart (●) to the goal (●)','<div class="maze" id=m></div>','Use arrow keys'); const m=document.getElementById('m');
+    // walls
+    const walls=[{x:30,y:0,w:8,h:170},{x:80,y:40,w:8,h:170},{x:130,y:0,w:8,h:170},{x:180,y:40,w:8,h:170},{x:230,y:0,w:8,h:170},{x:275,y:40,w:8,h:180}];
+    walls.forEach(w=>{ const d=document.createElement('div'); d.className='m-wall'; d.style.cssText=`left:${w.x}px;top:${w.y}px;width:${w.w}px;height:${w.h}px`; m.appendChild(d) });
+    const you=document.createElement('div'); you.className='m-you'; you.style.left='10px'; you.style.top='10px'; m.appendChild(you);
+    const goal=document.createElement('div'); goal.className='m-goal'; goal.style.left='290px'; goal.style.top='170px'; m.appendChild(goal);
+    let x=10,y=10; function collide(nx,ny){ const r={x:nx,y:ny,w:18,h:18}; return walls.some(w=> !(r.x+r.w<w.x||r.x>w.x+w.w||r.y+r.h<w.y||r.y>w.y+w.h) ) || nx<0||ny<0||nx>302||ny>182 }
+    window.onkeydown=(e)=>{ const k=e.key; let nx=x,ny=y; if(k==='ArrowUp')ny-=6; if(k==='ArrowDown')ny+=6; if(k==='ArrowLeft')nx-=6; if(k==='ArrowRight')nx+=6; if(nx===x&&ny===y) return; if(!collide(nx,ny)){ x=nx;y=ny; you.style.left=x+'px'; you.style.top=y+'px'; if(Math.hypot(x-290,y-170)<14){ solved() } } };
+  }
+  render();
+</script>
+</body>
+</html>
+
+
+
